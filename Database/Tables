@@ -44,6 +44,14 @@ CREATE TABLE Teachers (
     class_group_id INTEGER REFERENCES ClassGroups(class_group_id)
 );
 
+-- Таблиця для зв'язування вчителів і предметів, які вони викладають
+CREATE TABLE TeacherSubjects (
+    teacher_subject_id SERIAL PRIMARY KEY,
+    teacher_id INTEGER REFERENCES Teachers(teacher_id),
+    subject_id INTEGER REFERENCES Subjects(subject_id),
+    UNIQUE(teacher_id, subject_id) -- щоб уникнути дублювання
+);
+
 
 -- Таблиця відвідуваності
 CREATE TABLE Attendance (
