@@ -36,6 +36,15 @@ CREATE TABLE Students (
     class_group_id INTEGER REFERENCES ClassGroups(class_group_id)
 );
 
+
+-- Таблиця вчителів
+CREATE TABLE Teachers (
+    teacher_id INTEGER PRIMARY KEY REFERENCES Users(user_id),
+    subject_id INTEGER REFERENCES Subjects(subject_id),
+    class_group_id INTEGER REFERENCES ClassGroups(class_group_id)
+);
+
+
 -- Таблиця відвідуваності
 CREATE TABLE Attendance (
     attendance_id SERIAL PRIMARY KEY,
