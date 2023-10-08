@@ -36,7 +36,6 @@ CREATE TABLE Students (
     class_group_id INTEGER REFERENCES ClassGroups(class_group_id)
 );
 
-
 -- Таблиця вчителів
 CREATE TABLE Teachers (
     teacher_id INTEGER PRIMARY KEY REFERENCES Users(user_id),
@@ -51,7 +50,6 @@ CREATE TABLE TeacherSubjects (
     subject_id INTEGER REFERENCES Subjects(subject_id),
     UNIQUE(teacher_id, subject_id) -- щоб уникнути дублювання
 );
-
 
 -- Таблиця відвідуваності
 CREATE TABLE Attendance (
@@ -72,16 +70,6 @@ CREATE TABLE Grades (
     description TEXT
 );
 
--- Таблиця матеріалів для навчання
-CREATE TABLE Materials (
-    material_id SERIAL PRIMARY KEY,
-    subject_id INTEGER REFERENCES Subjects(subject_id),
-    homework TEXT,
-    topic_of_the_lesson TEXT,
-    description TEXT,
-    publish_date DATE NOT NULL
-);
-
 -- Таблиця розкладу занять
 CREATE TABLE Schedule (
     schedule_id SERIAL PRIMARY KEY,
@@ -90,4 +78,15 @@ CREATE TABLE Schedule (
     day_of_week VARCHAR(255) NOT NULL,
     start_time TIME NOT NULL,
     end_time TIME NOT NULL
+);
+
+-- Таблиця матеріалів для навчання з прив'язкою до розкладу
+CREATE TABLE Materials (
+    material_id SERIAL PRIMARY KEY,
+    schedule_id INTEGER REFERENCES Schedule(schedule_id),
+    subject_id INTEGER REFERENCES Subjects(subject_id),
+    homework TEXT,
+    topic_of_the_lesson TEXT,
+    description TEXT,
+    publish_date DATE NOT NULL
 );
